@@ -12,7 +12,7 @@ const mediaRoutes = require("./routes/media");
 app.use("/api/v1/media", mediaRoutes);
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-const mongodbUri = "mongodb://localhost:27017/uploadproject";
+const mongodbUri = "mongodb://127.0.0.1/uploadproject";
 
 mongoose.connect(mongodbUri, {
   useNewUrlParser: true,
