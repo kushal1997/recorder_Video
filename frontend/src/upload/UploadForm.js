@@ -1,21 +1,41 @@
 import React, { Fragment, useState } from "react";
 import axios from 'axios'
 import { BACKEND_URL } from "../config/constraints";
-export const UploadForm = () => {
+
+export const UploadForm = ({ getAllMedias }) => {
   const [name, setName] = useState("");
   const [videos, setVideos] = useState([]);
+  const [uploadProgress, setUploadProgress] = useState(0); // Track upload progress
+  const [showProgress, setShowProgress] = useState(false); // Flag to show/hide progress bar
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    let formData=new FormData();
-    for(let key in videos){
-      formData.append('videos',videos[key]);
+    let formData = new FormData();
+    for (let key in videos) {
+      formData.append('videos', videos[key]);
     }
-    formData.append("name",name);
-    axios.post(`${BACKEND_URL}/api/v1/media/create`,formData)
-    .then(success=>alert("Submitted Successflly"))
-    .catch(error=>alert("Error Happened"+error));
-    
+    formData.append("name", name);
+
+    axios.post(`${BACKEND_URL}/api/v1/media/create`, formData, {
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        setUploadProgress(percentCompleted); // Update the progress state
+        setShowProgress(true); // Show the progress bar
+      }
+    })
+    .then(success => {
+      getAllMedias();
+      alert("Submitted Successfully");
+      setUploadProgress(0); // Reset progress after successful upload
+      setShowProgress(false); // Hide the progress bar
+    })
+    .catch(error => {
+      alert("Error Happened" + error);
+      setUploadProgress(0); // Reset progress on error
+      setShowProgress(false); // Hide the progress bar
+    });
   };
+
   return (
     <Fragment>
       <form onSubmit={handleSubmit} action="">
@@ -39,8 +59,15 @@ export const UploadForm = () => {
             onChange={(e) => setVideos(e.target.files)}
           />
         </div>
-        <button type="submit" >Submit</button>
+        <button type="submit">Submit</button>
       </form>
+      {showProgress && (
+        <div>
+          <progress value={uploadProgress} max="100">
+            {uploadProgress}%
+          </progress>
+        </div>
+      )}
     </Fragment>
   );
 };
