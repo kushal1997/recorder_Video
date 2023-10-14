@@ -14,7 +14,6 @@ const mediaRoutes = require("./routes/media");
 app.use("/api/v1/media", mediaRoutes);
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-// const mongodbUri = "mongodb+srv://kushalrao103:XCD2fCSL9vo6wSaX@uploadvideo.xq4wcrq.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(mongodbUri, {
   useNewUrlParser: true,
