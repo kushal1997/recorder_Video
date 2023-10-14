@@ -2,7 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
+require('dotenv').config();
 
+const mongodbUri = process.env.MONGODB_URI;
 const app = express();
 
 app.use(cors());
@@ -12,7 +14,7 @@ const mediaRoutes = require("./routes/media");
 app.use("/api/v1/media", mediaRoutes);
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-const mongodbUri = "mongodb+srv://kushalrao103:XCD2fCSL9vo6wSaX@uploadvideo.xq4wcrq.mongodb.net/?retryWrites=true&w=majority";
+// const mongodbUri = "mongodb+srv://kushalrao103:XCD2fCSL9vo6wSaX@uploadvideo.xq4wcrq.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(mongodbUri, {
   useNewUrlParser: true,
