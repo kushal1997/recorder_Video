@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+}
+.mainContainer{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 50px 20px;
+}
+.uploadOne{
+ width: 500px;
+ height: fit-content;
+ border: 2px solid black;
+}
+.uploadTwo{
+  width: 700px;
+  height: 100vh;
+  border: 2px solid black;
+}
