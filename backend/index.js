@@ -16,6 +16,10 @@ const mediaRoutes = require("./routes/media");
 app.use("/api/v1/media", mediaRoutes);
 app.use("/public", express.static(path.join(__dirname, "public")));
 
+// Add route for "/"
+app.get("/", (req, res) => {
+  res.send("<h1>Welcome!! Video Server</h1>");
+});
 
 mongoose.connect(mongodbUri, {
   useNewUrlParser: true,
