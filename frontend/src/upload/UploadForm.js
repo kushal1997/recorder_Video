@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from "react";
 import axios from 'axios'
-import { BACKEND_URL } from "../config/constraints";
 
 export const UploadForm = ({ getAllMedias }) => {
+  const apiUrl = process.env.REACT_APP_CREATE_VIDEO;
+
   const [name, setName] = useState("");
   const [videos, setVideos] = useState([]);
   const [uploadProgress, setUploadProgress] = useState(0); // Track upload progress
@@ -16,7 +17,7 @@ export const UploadForm = ({ getAllMedias }) => {
     }
     formData.append("name", name);
 
-    axios.post(`${BACKEND_URL}/api/v1/media/create`, formData, {
+    axios.post(apiUrl, formData, {
       onUploadProgress: (progressEvent) => {
         const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
         setUploadProgress(percentCompleted); // Update the progress state

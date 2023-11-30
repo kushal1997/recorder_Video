@@ -5,6 +5,8 @@ import { BottomHeader } from "../bottomHeader/BottomHeader";
 
 
 export const UploadList = ({ medias }) => {
+  const apiUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [selectedVideo, setSelectedVideo] = useState(null);
 
   const handleVideoClick = (videoUrl) => {
@@ -60,14 +62,14 @@ export const UploadList = ({ medias }) => {
                       <div
                         key={media._id}
                         className={`playlist-item ${
-                          selectedVideo === `${BACKEND_URL}${media.videos[0]}`
+                          selectedVideo === `${apiUrl}${media.videos[0]}`
                             ? "active"
                             : ""
                         }`}
                       >
                         <p
                           onClick={() =>
-                            handleVideoClick(`${BACKEND_URL}${media.videos[0]}`)
+                            handleVideoClick(`${apiUrl}${media.videos[0]}`)
                           }
                         >
                           <input type="checkbox" id="check_box" />{" "}

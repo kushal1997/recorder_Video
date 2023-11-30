@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { BACKEND_URL } from '../config/constraints'
 import { UploadForm } from './UploadForm'
 import { UploadList } from './UploadList'
 import { Route, Routes } from 'react-router-dom';
 
-export const Upload = () => {
-  const [medias, setMedias] = useState([]);
 
+
+export const Upload = () => {
+
+  const [medias, setMedias] = useState([]);
+  const getVideos =process.env.REACT_APP_GET_VIDEOS
+  console.log(getVideos);
   useEffect(() => {
     getAllMedias();
   }, []);
 
   const getAllMedias = () => {
     axios
-      .get(`${BACKEND_URL}/api/v1/media/all`)
+      .get(getVideos)
       .then((result) => {
         setMedias(result.data);
       })
@@ -26,10 +29,10 @@ export const Upload = () => {
   };
   return (
     <div className="mainContainer">
-    <Routes>
-<Route path='/' element={<UploadList medias={medias}/>}></Route>
-<Route path='/uploadform'element={<UploadForm getAllMedias={getAllMedias}/>}> </Route>
-    </Routes>
+      <Routes>
+        <Route path='/' element={<UploadList medias={medias} />}></Route>
+        <Route path='/uploadform' element={<UploadForm getAllMedias={getAllMedias} />}> </Route>
+      </Routes>
       {/* <div className="uploadOne">
         <UploadForm getAllMedias={getAllMedias}/>
       </div>

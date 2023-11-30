@@ -16,3 +16,10 @@
   height: 100vh;
   border: 2px solid black;
 }
+
+.showblock{
+  display: block;
+}
+.hideblock{
+  display: none;
+}
